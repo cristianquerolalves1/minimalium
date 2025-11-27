@@ -1,0 +1,27 @@
+{
+  "name": "minimalium",
+  "version": "0.1.0",
+  "description": "A modern, minimal CSS framework built on design tokens, utilities, and lightweight components.",
+  "main": "dist/style.css",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "node build.js",
+    "clean": "rm -rf dist",
+    "prepare": "npm run build",
+    "lint:css": "stylelint 'src/**/*.css' || true"
+  },
+  "keywords": ["css","design-tokens","ui","minimal","framework"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.4.14",
+    "cssnano": "^6.0.1",
+    "postcss": "^8.4.24",
+    "postcss-cli": "^10.1.0",
+    "postcss-import": "^15.1.0",
+    "stylelint": "^15.11.0"
+  }
+}

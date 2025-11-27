@@ -1,0 +1,77 @@
+/* ==========================
+   MINIMALIUM - TABLE COMPONENT
+   ========================== */
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--text-sm);
+  font-family: 'Inter', sans-serif;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.table th,
+.table td {
+  padding: 0.85rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: background 0.3s ease;
+}
+
+.table th {
+  background: linear-gradient(90deg, var(--color-primary)/10, var(--color-primary)/3);
+  font-weight: 700;
+  color: var(--color-text-inverse);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(79, 70, 229, 0.08);
+  transform: translateY(-1px);
+}
+
+.table-striped tbody tr:nth-child(even) {
+  background-color: rgba(79, 70, 229, 0.03);
+}
+
+.table-bordered {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.table-bordered th,
+.table-bordered td {
+  border-left: 1px solid rgba(0,0,0,0.05);
+}
+
+.table-bordered th:first-child,
+.table-bordered td:first-child {
+  border-left: none;
+}
+
+
+.table tbody td:first-child {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .table th, .table td {
+    padding: 0.6rem 0.8rem;
+  }
+  .table th {
+    font-size: 0.8rem;
+  }
+}

@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>MINIMALIUM – Docs</title>
+    <meta
+      name="description"
+      content="Minimalist and elegant CSS framework. Accessible components, clean utilities, and intentional design."
+    />
+
+    <!-- MINIMALIUM -->
+    <link rel="stylesheet" href="./dist/style.css" />
+    <!-- Favicon clásico -->
+    <link rel="icon" type="image/svg" href="../public/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+              :root {
+                              --doc-bg: #ffffff;
+                              --doc-fg: #111111;
+                              --doc-muted: #6b7280;
+                              --doc-border: #e5e7eb;
+                              --doc-card: #ffffff;
+                              --doc-preview: #f9fafb;
+                              --doc-code: #1f2937;
+                              --doc-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+                              --accent: var(--color-primary);
+                            }
+
+                            .dark {
+                              --doc-bg: #0a0a0a;
+                              --doc-fg: #f9fafb;
+                              --doc-muted: #9ca3af;
+                              --doc-border: #2d3748;
+                              --doc-card: #171717;
+                              --doc-preview: #171717;
+                              --doc-code: #0d1117;
+                              --doc-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+                            }
+
+                            body {
+                              margin: 0;
+                              font-family: "Inter", sans-serif;
+                              background: var(--doc-bg);
+                              color: var(--doc-fg);
+                              transition: background 0.3s ease, color 0.3s ease;
+                            }
+
+                            .docs {
+                              display: grid;
+                              grid-template-columns: 260px 1fr;
+                              min-height: 100vh;
+                            }
+
+                            .sidebar {
+                              position: sticky;
+                              top: 0;
+                              height: 100vh;
+                              overflow-y: auto;
+                              padding: 2rem 1.5rem;
+                              border-right: 1px solid var(--doc-border);
+                              background: var(--doc-bg);
+                            }
+
+                            .logo {
+                              font-size: 1.9rem;
+                              font-weight: 900;
+                              letter-spacing: -1px;
+                              margin-bottom: 2rem;
+                              color: var(--accent);
+                            }
+
+                            .nav-title {
+                              font-size: 0.75rem;
+                              margin: 2.2rem 0 0.5rem;
+                              color: var(--doc-muted);
+                              font-weight: 600;
+                              text-transform: uppercase;
+                              letter-spacing: 0.08em;
+                            }
+
+                            .nav-link {
+                              display: block;
+                              padding: 0.55rem 0.9rem;
+                              border-radius: 0.6rem;
+                              font-weight: 500;
+                              color: var(--doc-fg);
+                              transition: all 0.25s;
+                            }
+
+                            .nav-link:hover,
+                            .nav-link.active {
+                              background: rgba(120, 120, 255, 0.1);
+                              color: var(--accent);
+                            }
+
+                            .content {
+                              padding: 3.5rem 5rem;
+                              max-width: 1100px;
+                            }
+
+                            .hero {
+                              text-align: center;
+                              margin-bottom: 5rem;
+                            }
+
+                            .hero h1 {
+                              font-size: 4.4rem;
+                              font-weight: 900;
+                              margin: 0 0 1.3rem;
+                              letter-spacing: -2px;
+                            }
+
+                            .hero p {
+                              color: var(--doc-muted);
+                              font-size: 1.25rem;
+                              max-width: 680px;
+                              margin: 0 auto;
+                              line-height: 1.6;
+                            }
+
+
+                            .section {
+                              margin-top: 5rem;
+                              scroll-margin-top: 100px;
+                            }
+
+                            h2 {
+                              font-size: 2.5rem;
+                              margin: 0 0 1rem;
+                              font-weight: 800;
+                              letter-spacing: -1px;
+                            }
+
+
+                            .component-preview {
+                              margin-top: 2rem;
+                              border-radius: 1.2rem;
+                              overflow: hidden;
+                              border: 1px solid var(--doc-border);
+                              background: var(--doc-card);
+                              box-shadow: var(--doc-shadow);
+                            }
+
+                            .tabs {
+                              display: flex;
+                              border-bottom: 1px solid var(--doc-border);
+                              background: var(--doc-bg);
+                            }
+
+                            .tab {
+                              padding: 1rem 1.8rem;
+                              cursor: pointer;
+                              font-weight: 600;
+                              background: none;
+                              border: none;
+                              color: var(--doc-muted);
+                              transition: color 0.25s;
+                            }
+
+                            .tab.active {
+                              color: var(--accent);
+                              border-bottom: 3px solid var(--accent);
+                            }
+
+                            .preview-body {
+                              padding: 3rem;
+                              background: var(--doc-preview);
+                              display: flex;
+                              gap: 2rem;
+                              flex-wrap: wrap;
+                              justify-content: center;
+                              align-items: center;
+                              min-height: 200px;
+                            }
+
+
+                            .code-block {
+                              position: relative;
+                              background: var(--doc-code);
+                            }
+
+                            .code-block pre {
+                              margin: 0;
+                              padding: 2rem 3rem;
+                              font-family: "SF Mono", Menlo, monospace;
+                              font-size: 0.9rem;
+                              overflow-x: auto;
+                              color: #e6edf3;
+                            }
+
+                            .copy-btn {
+                              position: absolute;
+                              top: 1rem;
+                              right: 1rem;
+                              font-size: 0.85rem;
+                              padding: 0.4rem 1rem;
+                              border: none;
+                              border-radius: 0.5rem;
+                              cursor: pointer;
+                              backdrop-filter: blur(8px);
+                              transition: all 0.25s;
+                              background: rgba(255, 255, 255, 0.12);
+                              color: white;
+                            }
+
+                            .copy-btn:hover {
+                              background: rgba(255, 255, 255, 0.22);
+                              transform: translateY(-1px);
+                            }
+
+
+                            .props-table {
+                              width: 100%;
+                              border-collapse: collapse;
+                              margin-top: 3rem;
+                              border: 1px solid var(--doc-border);
+                              background: var(--doc-card);
+                              border-radius: 1rem;
+                              overflow: hidden;
+                            }
+
+
+                            .props-table th,
+                            .props-table td {
+                              padding: 1.1rem 1.4rem;
+                              border-bottom: 1px solid var(--doc-border);
+                            }
+
+                            .props-table th {
+                              background: var(--doc-bg);
+                              font-weight: 600;
+                            }
+
+
+                            .theme-toggle-wrapper {
+                          position: fixed;
+                          top: 2rem;
+                          right: 2rem;
+                          z-index: 9999;
+                          backdrop-filter: blur(12px);
+                          background: rgba(255, 255, 255, 0.15);
+                          padding: 0.5rem;
+                          border-radius: 9999px;
+                          border: 1px solid rgba(255, 255, 255, 0.2);
+                          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+                        }
+
+                        .dark .theme-toggle-wrapper {
+                          background: rgba(0, 0, 0, 0.4);
+                          border-color: rgba(255, 255, 255, 0.1);
+                        }
+
+                        .theme-toggle-ios {
+                          position: relative;
+                          display: inline-block;
+                          width: 64px;
+                          height: 36px;
+                          cursor: pointer;
+                        }
+
+                        .theme-toggle-ios input {
+                          opacity: 0;
+                          width: 0;
+                          height: 0;
+                        }
+
+                        .theme-toggle-slider {
+                          position: absolute;
+                          cursor: pointer;
+                          top: 0; left: 0; right: 0; bottom: 0;
+                          background: #e5e5ea;
+                          border-radius: 36px;
+                          transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                          box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+                          overflow: hidden;
+                        }
+
+                        .theme-toggle-slider:before {
+                          position: absolute;
+                          content: "";
+                          height: 32px;
+                          width: 32px;
+                          left: 2px;
+                          bottom: 2px;
+                          background: white;
+                          border-radius: 50%;
+                          transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                          box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+                          z-index: 2;
+                        }
+
+                        .theme-toggle-slider svg {
+                          position: absolute;
+                          width: 20px;
+                          height: 20px;
+                          top: 8px;
+                          transition: all 0.4s;
+                          fill: #fff;
+                          z-index: 1;
+                        }
+
+                        .theme-toggle-slider .sun {
+                          left: 8px;
+                          opacity: 1;
+                        }
+
+                        .theme-toggle-slider .moon {
+                          right: 8px;
+                          opacity: 0;
+                          transform: scale(0.8);
+                        }
+
+                        input:checked + .theme-toggle-slider {
+                          background: #0a0a0a;
+                        }
+
+                        input:checked + .theme-toggle-slider:before {
+                          transform: translateX(28px);
+                        }
+
+                        input:checked + .theme-toggle-slider .sun {
+                          opacity: 0;
+                          transform: scale(0.8);
+                        }
+
+                        input:checked + .theme-toggle-slider .moon {
+                          opacity: 1;
+                          transform: scale(1);
+                        }
+
+                        .theme-toggle-ios:hover .theme-toggle-slider {
+                          box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+                        }
+
+
+                        .dark {
+                          --doc-bg: #000000;
+                          --doc-fg: #ffffff;
+                          --doc-muted: #a1a1aa;
+                          --doc-border: #2c2c2e;
+                          --doc-card: #1c1c1e;
+                          --doc-preview: #1c1c1e;
+                          --doc-code: #0d1117;
+                          --doc-shadow: 0 10px 40px rgba(0,0,0,0.6);
+                          --doc-glow: rgba(99,102,241,0.15);
+                        }
+
+                        .dark .card,
+                        .dark .component-preview,
+                        .dark .accordion,
+                        .dark .props-table {
+                          background: #1c1c1e !important;
+                          border-color: #2c2c2e !important;
+                          box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+                        }
+
+                        .dark .code-block {
+                          background: #0d1117 !important;
+                        }
+
+                        .dark .code-block pre,
+                        .dark .code-block code {
+                          color: #e6edf3 !important;
+                        }
+
+                        .dark .copy-btn {
+                          background: rgba(255,255,255,0.12) !important;
+                          color: white !important;
+                        }
+
+                        .dark .copy-btn:hover {
+                          background: rgba(255,255,255,0.25) !important;
+                        }
+
+                        .dark .sidebar,
+                        .dark .hero p,
+                        .dark .card-body p,
+                        .dark .accordion-body,
+                        .dark .props-table td,
+                        .dark .nav-link,
+                        .dark footer {
+                          color: #e5e5ea !important;
+                        }
+
+                        .dark h1, .dark h2, .dark h3, .dark .card-title {
+                          color: #ffffff !important;
+                        }
+
+                        .dark .badge,
+                        .dark .button {
+                          filter: brightness(1.1);
+                        }
+
+
+                        @media (max-width: 900px) {
+                          .docs {
+                            grid-template-columns: 1fr;
+                          }
+
+                          .sidebar {
+                            position: fixed;
+                            left: 0;
+                            top: 0;
+                            height: 100vh;
+                            width: 260px;
+                            transform: translateX(-100%);
+                            transition: transform .3s ease;
+                            z-index: 999;
+                            background: var(--doc-bg);
+                          }
+
+                          .sidebar.open {
+                            transform: translateX(0);
+                          }
+
+
+                          .mobile-menu-btn {
+                            position: fixed;
+                            top: 1.5rem;
+                            left: 1.5rem;
+                            z-index: 9999;
+                            padding: .6rem .9rem;
+                            border-radius: .6rem;
+                            backdrop-filter: blur(6px);
+                            background: rgba(0,0,0,0.1);
+                            cursor: pointer;
+                            border: 1px solid var(--doc-border);
+                          }
+
+
+                          .content {
+                            padding: 2rem 1.5rem;
+                            max-width: 100%;
+                          }
+
+
+                          .hero h1 {
+                            font-size: 2.7rem;
+                          }
+
+                          .hero p {
+                            font-size: 1rem;
+                            padding: 0 1rem;
+                          }
+
+                          .preview-body {
+                            padding: 1.5rem;
+                            gap: 1.2rem;
+                          }
+
+                          .component-preview {
+                            border-radius: 1rem;
+                          }
+
+                          .tabs {
+                            flex-direction: row;
+                            overflow-x: auto;
+                          }
+
+                          .tab {
+                            white-space: nowrap;
+                            padding: .9rem 1.3rem;
+                            font-size: .9rem;
+                          }
+
+
+                          .code-block pre {
+                            padding: 1.3rem;
+                            font-size: .8rem;
+                          }
+
+
+                          .props-table th,
+                          .props-table td {
+                            padding: .8rem;
+                            font-size: .9rem;
+                          }
+
+                          .props-table {
+                            display: block;
+                            width: 100%;
+                            overflow-x: auto;
+                          }
+
+
+                          img,
+                          .avatar,
+                          .alert {
+                            max-width: 100%;
+                            height: auto;
+                          }
+
+                          .preview-body {
+                            justify-content: center;
+                            flex-wrap: wrap;
+                          }
+
+                          .theme-toggle-wrapper {
+                            top: 1rem;
+                            right: 1rem;
+                            scale: .85;
+                          }
+                        }
+
+
+                        @media (max-width: 500px) {
+                          .hero h1 {
+                            font-size: 2.2rem;
+                          }
+
+                          .tab {
+                            padding: .7rem 1.1rem;
+                          }
+
+                          .preview-body {
+                            padding: 1rem;
+                          }
+                        }
+
+                        .preview-body {
+        max-width: 100%;
+        overflow-x: auto;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+
+      .props-table {
+        display: table;
+        width: 100%;
+        overflow-x: auto;
+      }
+
+
+
+                      html, body {
+                        overflow-x: hidden !important;
+                        max-width: 100% !important;
+                      }
+
+                      * {
+                        box-sizing: border-box;
+                      }
+
+                      img, video, canvas {
+                        max-width: 100%;
+                        height: auto;
+                      }
+
+                      pre, code {
+                        max-width: 100%;
+                        overflow-x: auto;
+                        white-space: pre-wrap;
+                        word-break: break-word;
+                      }
+
+                      table {
+                        display: block;
+                        width: 100%;
+                        overflow-x: auto;
+                      }
+
+                      .preview-body {
+                        max-width: 100%;
+                        overflow-x: hidden;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        padding-left: 0;
+                        padding-right: 0;
+                      }
+
+                      .docs,
+                      .component-preview,
+                      .grid,
+                      .row {
+                        max-width: 100%;
+                        overflow-x: hidden;
+                      }
+
+                      button, .tab, .tabs button {
+                        max-width: 100%;
+                        white-space: nowrap;
+                      }
+
+          .input {
+            color: var(--doc-fg);
+            background: var(--doc-card);
+          }
+
+
+          .dark .input {
+            color: #ffffff;
+            background: #1c1c1e;
+            border-color: rgba(255, 255, 255, 0.2);
+          }
+
+
+          .input::placeholder {
+            color: var(--doc-muted);
+            opacity: 1;
+          }
+
+          .dark .input::placeholder {
+            color: #cbd5e1;
+          }
+
+
+          .dark .input-success {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34,197,94,0.4);
+          }
+
+          .dark .input-warning {
+            border-color: #facc15;
+            box-shadow: 0 0 0 3px rgba(250,204,21,0.4);
+          }
+
+          .dark .input-error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239,68,68,0.4);
+          }
+    </style>
+  </head>
+
+  <body>
+    <div class="mobile-menu-btn" onclick="toggleSidebar()">☰</div>
+    <div class="docs">
+      <!-- TOGGLE THEME -->
+      <div class="theme-toggle-wrapper">
+        <label class="theme-toggle-ios">
+          <input type="checkbox" id="theme-toggle-input" />
+          <span class="theme-toggle-slider">
+            <svg class="sun" viewBox="0 0 24 24">
+              <path
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+            <svg class="moon" viewBox="0 0 24 24">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </span>
+        </label>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="logo">MINIMALIUM</div>
+
+        <input
+          type="search"
+          class="input mt-6"
+          id="search"
+          placeholder="Search component..."
+        />
+
+        <nav class="mt-10">
+          <div class="nav-title">Home</div>
+          <a href="#intro" class="nav-link active">Introduction</a>
+          <a href="#install" class="nav-link">Installation</a>
+
+          <div class="nav-title">Components</div>
+          <a href="#button" class="nav-link">Button</a>
+          <a href="#input" class="nav-link">Input</a>
+          <a href="#alert" class="nav-link">Alert</a>
+          <a href="#avatar" class="nav-link">Avatar</a>
+          <a href="#calendar" class="nav-link">Calendar</a>
+          <a href="#skeleton" class="nav-link">Skeleton Loader</a>
+        </nav>
+      </aside>
+
+      <!-- CONTENT -->
+      <main class="content">
+        <!-- HERO -->
+        <section id="intro" class="hero">
+          <h1>MINIMALIUM</h1>
+          <p>
+            A CSS framework designed to remove the unnecessary.<br />Pure
+            elegance, extreme performance, and full accessibility.
+          </p>
+
+          <div class="flex gap-4 justify-center mt-10">
+            <a href="#install" class="button button-lg">Get Started</a>
+            <a
+              href="https://github.com/tu/minimalium"
+              class="button button-lg button-outline"
+              >GitHub</a
+            >
+          </div>
+        </section>
+
+        <!-- INSTALL -->
+        <section id="install" class="section">
+          <h2>Installation</h2>
+          <p>Add this line into your project’s <code>&lt;head&gt;</code>:</p>
+
+          <div class="component-preview">
+            <div class="tabs">
+              <button class="tab active" data-target="code-install">
+                Code
+              </button>
+            </div>
+
+            <div id="code-install" class="tab-content active">
+              <div class="code-block">
+                <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cristianquerolalves/minimalium@latest/dist/style.css"&gt;</code></pre>
+                <button class="copy-btn">Copy</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- COMPONENTS -->
+
+        <!-- BUTTON -->
+
+       <section id="button" class="section">
+  <h2>Button</h2>
+
+  <div class="component-preview">
+    <div class="tabs">
+      <button class="tab active" data-target="preview-button">Preview</button>
+      <button class="tab" data-target="code-button">Code</button>
+    </div>
+
+    <div id="preview-button" class="tab-content active">
+      <div class="preview-body" style="display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:center;">
+
+        <button class="button button-primary">Primary</button>
+        <button class="button button-outline">Outline</button>
+        <button class="button button-secondary">Secondary</button>
+        <button class="button button-success">Success</button>
+        <button class="button button-warning">Warning</button>
+        <button class="button button-danger">Danger</button>
+
+        <button class="button button-glass">Glass</button>
+        <button class="button button-neu">Neumorphism</button>
+      </div>
+    </div>
+
+    <!-- CODE -->
+    <div id="code-button" class="tab-content">
+      <div class="code-block">
+        <pre><code>&lt;button class="button button-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="button button-outline"&gt;Outline&lt;/button&gt;
+&lt;button class="button button-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="button button-success"&gt;Success&lt;/button&gt;
+&lt;button class="button button-warning"&gt;Warning&lt;/button&gt;
+&lt;button class="button button-danger"&gt;Danger&lt;/button&gt;
+&lt;button class="button button-glass"&gt;Glass&lt;/button&gt;
+&lt;button class="button button-neu"&gt;Neumorphism&lt;/button&gt;</code></pre>
+        <button class="copy-btn">Copy</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+        <!-- INPUT -->
+        <section id="input" class="section">
+          <h2>Input</h2>
+
+          <div class="component-preview">
+            <div class="tabs">
+              <button class="tab active" data-target="preview-input">
+                Preview
+              </button>
+              <button class="tab" data-target="code-input">Code</button>
+            </div>
+
+            <!-- PREVIEW -->
+            <div id="preview-input" class="tab-content active">
+              <div class="preview-body">
+                <div class="input-card">
+                  <input
+                    class="input input-md input-icon input-icon-left"
+                    data-icon="🔍"
+                    placeholder="Normal"
+                  />
+                  <input
+                    class="input input-md input-success"
+                    placeholder="Success"
+                  />
+                  <input
+                    class="input input-md input-warning"
+                    placeholder="Warning"
+                  />
+                  <input
+                    class="input input-md input-error"
+                    placeholder="Error"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- CODE -->
+            <div id="code-input" class="tab-content">
+              <div class="code-block">
+                <pre><code>&lt;div class="input-card"&gt;
+        &lt;input class="input input-md input-icon input-icon-left" data-icon="🔍" placeholder="Normal"&gt;
+        &lt;input class="input input-md input-success" placeholder="Success"&gt;
+        &lt;input class="input input-md input-warning" placeholder="Warning"&gt;
+        &lt;input class="input input-md input-error" placeholder="Error"&gt;
+      &lt;/div&gt;</code></pre>
+                <button class="copy-btn">Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <table class="props-table">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Description</th>
+                <th>Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>.input-card</td>
+                <td>Wrapper card, centered</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>.input</td>
+                <td>Base input</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>.input-sm → .input-lg</td>
+                <td>Sizes</td>
+                <td>sm, md, lg</td>
+              </tr>
+              <tr>
+                <td>.input-rounded</td>
+                <td>Fully rounded input</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>.input-success</td>
+                <td>Success state</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>.input-warning</td>
+                <td>Warning state</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>.input-error</td>
+                <td>Error state</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>:disabled</td>
+                <td>Disabled input</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>.input-icon</td>
+                <td>Left icon</td>
+                <td>—</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- ALERT -->
+
+        <section id="alert" class="section">
+          <h2>Alert</h2>
+
+          <div class="component-preview">
+            <div class="tabs">
+              <button class="tab active" data-target="preview-alert">
+                Preview
+              </button>
+              <button class="tab" data-target="code-alert">Code</button>
+            </div>
+
+            <div id="preview-alert" class="tab-content active">
+              <div class="preview-body">
+                <div class="alert alert-primary">Information</div>
+                <div class="alert alert-success">Success</div>
+                <div class="alert alert-warning">Warning</div>
+                <div class="alert alert-danger">Error</div>
+              </div>
+            </div>
+
+            <div id="code-alert" class="tab-content">
+              <div class="code-block">
+                <pre><code>&lt;div class="alert alert-success"&gt;Success&lt;/div&gt;</code></pre>
+                <button class="copy-btn">Copy</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- AVATAR -->
+
+        <section id="avatar" class="section">
+          <h2>Avatar</h2>
+
+          <div class="component-preview">
+            <div class="tabs">
+              <button class="tab active" data-target="preview-avatar">
+                Preview
+              </button>
+              <button class="tab" data-target="code-avatar">Code</button>
+            </div>
+
+            <div id="preview-avatar" class="tab-content active">
+              <div class="preview-body">
+                <div class="avatar avatar-xl">
+                  <img
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop"
+                  />
+                </div>
+
+                <div class="avatar avatar-lg">JD</div>
+                <div class="avatar avatar-md">AM</div>
+
+                <div class="avatar avatar-lg">
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop"
+                  />
+                  <span class="avatar-status avatar-status-online"></span>
+                </div>
+
+                <div class="avatar avatar-md">
+                  <img
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop"
+                  />
+                  <span class="avatar-badge">3</span>
+                </div>
+              </div>
+            </div>
+
+            <div id="code-avatar" class="tab-content">
+              <div class="code-block">
+                <pre><code>&lt;div class="avatar avatar-lg"&gt;
+        &lt;img src="profile.jpg"&gt;
+        &lt;span class="avatar-status avatar-status-online"&gt;&lt;/span&gt;
+      &lt;/div&gt;</code></pre>
+                <button class="copy-btn">Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <table class="props-table">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Description</th>
+                <th>Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>.avatar</td>
+                <td>Base container</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>.avatar-xs → .avatar-xl</td>
+                <td>Sizes</td>
+                <td>xs, sm, md, lg, xl</td>
+              </tr>
+              <tr>
+                <td>.avatar-status</td>
+                <td>Status indicator</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>.avatar-status-online</td>
+                <td>Online state</td>
+                <td>—</td>
+              </tr>
+              <tr>
+                <td>.avatar-badge</td>
+                <td>Notifications</td>
+                <td>1–99</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- CALENDAR -->
+
+        <section id="calendar" class="section">
+          <h2>Calendar</h2>
+
+          <div class="component-preview">
+            <div class="tabs">
+              <button class="tab active" data-target="preview-calendar">
+                Preview
+              </button>
+              <button class="tab" data-target="code-calendar">Code</button>
+            </div>
+
+            <div id="preview-calendar" class="tab-content active">
+              <div class="preview-body">
+                <div class="calendar">
+                  <div class="calendar-header">
+                    <button id="prev-month">&lt;</button>
+                    <h2 id="month-year">November 2025</h2>
+                    <button id="next-month">&gt;</button>
+                  </div>
+                  <div class="calendar-weekdays">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                  </div>
+                  <div class="calendar-days">
+                    <!-- JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="code-calendar" class="tab-content">
+              <div class="code-block">
+                <pre><code>&lt;div class="calendar"&gt;
+        &lt;div class="calendar-header"&gt;
+          &lt;button&gt;&lt;/button&gt;
+          &lt;h2&gt;November 2025&lt;/h2&gt;
+          &lt;button&gt;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class="calendar-weekdays"&gt;Sun, Mon, Tue...&lt;/div&gt;
+        &lt;div class="calendar-days"&gt;1, 2, 3...&lt;/div&gt;
+      &lt;/div&gt;</code></pre>
+                <button class="copy-btn">Copy</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SKELETON -->
+
+        <section id="skeleton" class="section">
+          <h2>Skeleton Loader</h2>
+
+          <div class="component-preview">
+            <div class="tabs">
+              <button class="tab active" data-target="preview-skeleton">
+                Preview
+              </button>
+              <button class="tab" data-target="code-skeleton">Code</button>
+            </div>
+
+            <div id="preview-skeleton" class="tab-content active">
+              <div
+                class="preview-body"
+                style="display: flex; gap:1rem; flex-wrap: wrap;"
+              >
+                <div class="skeleton skeleton-avatar"></div>
+                <div class="skeleton skeleton-sm"></div>
+                <div class="skeleton skeleton-md"></div>
+                <div class="skeleton skeleton-lg"></div>
+                <div class="skeleton skeleton-card"></div>
+              </div>
+            </div>
+
+            <div id="code-skeleton" class="tab-content">
+              <div class="code-block">
+                <pre><code>&lt;div class="skeleton skeleton-avatar"&gt;&lt;/div&gt;
+      &lt;div class="skeleton skeleton-sm"&gt;&lt;/div&gt;
+      &lt;div class="skeleton skeleton-md"&gt;&lt;/div&gt;
+      &lt;div class="skeleton skeleton-lg"&gt;&lt;/div&gt;
+      &lt;div class="skeleton skeleton-card"&gt;&lt;/div&gt;</code></pre>
+                <button class="copy-btn">Copy</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+<p style="
+  text-align:center;
+  font-size:0.9rem;
+  color:#f1f1f1;
+  padding:6px 12px;
+  border-radius:12px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  cursor: default;
+"
+onmouseover="this.style.background='rgba(255,255,255,0.1)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.15)';"
+onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';">
+  Minimalium &copy; made by Cristian Querol Alves
+</p>
+
+
+    <!-- JS -->
+    <script src="./script.js"></script>
+  </body>
+</html>
