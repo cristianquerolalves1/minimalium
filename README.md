@@ -1,6 +1,6 @@
 # Minimalium – Minimalist Modern CSS Framework
 
-**Minimalium** is a lightweight, futuristic CSS framework for building clean, responsive, and modern interfaces. Inspired by **iOS design, glassmorphism, and neumorphism**, it provides prebuilt components and utility tokens for fast development. Supports **dark mode** and fully customizable via CSS variables.
+**Minimalium** is a lightweight, futuristic CSS framework for building clean, responsive, and modern interfaces. It provides prebuilt components and utility tokens for fast development. Supports **dark mode** and fully customizable via CSS variables.
 
 ---
 ## Installation
@@ -10,7 +10,7 @@
 Add this line into your project’s `<head>`:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cristianquerolalves/minimalium@latest/dist/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cristianquerolalves1/minimalium@latest/dist/style.css">
 ```
 
 ### Local Installation
