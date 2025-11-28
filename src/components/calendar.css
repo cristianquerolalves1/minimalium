@@ -1,116 +1,179 @@
-/* ==========================
-   MINIMALIUM - CALENDAR COMPONENT
-   ========================== */
+/* ==========================================================================
+   MINIMALIUM – CALENDAR PRO+ (iOS / shadcn / Glassmorphism Edition)
+   ========================================================================== */
 
 .calendar {
   width: 100%;
-  max-width: 360px;
-  border-radius: 1rem;
+  max-width: 380px;
+  border-radius: var(--radius-2xl, 1.25rem);
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 0 rgba(255, 255, 255, 0.2);
+  
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  border: 1px solid rgba(255,255,255,0.2);
   font-family: "Inter", sans-serif;
-  margin: auto;
+  transition: all .3s ease;
 }
 
+/* Dark Mode */
 .dark .calendar {
-  background: rgba(0,0,0,0.4);
-  border-color: rgba(255,255,255,0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  background: rgba(20, 20, 20, 0.55);
+  border-color: rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 0 rgba(255,255,255,0.05);
 }
 
+/* -----------------------------------------------------
+   HEADER
+----------------------------------------------------- */
 .calendar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(6px);
+
+  padding: 1.2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(25px);
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.15);
 }
 
 .dark .calendar-header {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255,255,255,0.05);
 }
 
 .calendar-header h2 {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 700;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 
+/* Arrow Buttons */
 .calendar-header button {
-  background: transparent;
+  background: rgba(255,255,255,0.25);
   border: none;
-  font-size: 1.25rem;
-  cursor: pointer;
+  border-radius: 0.7rem;
+
+  padding: 0.4rem 0.75rem;
+  font-size: 1.1rem;
+
   color: var(--doc-fg);
-  transition: all 0.2s;
+  cursor: pointer;
+  transition: all .22s ease;
+  backdrop-filter: blur(10px);
 }
 
 .calendar-header button:hover {
-  color: var(--color-primary);
+  background: var(--color-primary);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
+/* -----------------------------------------------------
+   WEEKDAYS
+----------------------------------------------------- */
 .calendar-weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+
   text-align: center;
   font-weight: 600;
-  padding: 0.75rem 0;
+  padding: 0.8rem 0;
+
   color: var(--doc-muted);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-size: 0.85rem;
+
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
 }
 
 .dark .calendar-weekdays {
-  color: #9ca3af;
-  border-color: rgba(255,255,255,0.1);
+  color: #c1c1c1;
 }
 
+/* -----------------------------------------------------
+   DAYS GRID
+----------------------------------------------------- */
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  gap: 0.25rem;
-  padding: 1rem;
+  padding: 1.25rem;
+  gap: 0.45rem;
 }
 
+/* -----------------------------------------------------
+   INDIVIDUAL DAY
+----------------------------------------------------- */
 .calendar-day {
   position: relative;
-  padding: 0.75rem 0;
-  border-radius: 0.6rem;
+  padding: 0.8rem 0;
+  border-radius: 0.8rem;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all .2s ease;
+
   color: var(--doc-fg);
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(6px);
+}
+
+.dark .calendar-day {
+  background: rgba(255,255,255,0.03);
 }
 
 .calendar-day:hover {
-  background: rgba(120,120,255,0.1);
+  background: rgba(110, 110, 255, 0.25);
+  box-shadow: 0 6px 20px rgba(120,120,255,0.25);
+  transform: translateY(-1px);
 }
 
+/* Today Highlight (iOS-style ring) */
 .calendar-day.today {
-  font-weight: 700;
+  border: 2px solid var(--color-primary);
   color: var(--color-primary);
-  border: 1px solid var(--color-primary);
+  font-weight: 700;
+  background: rgba(255,255,255,0.18);
 }
 
+/* Selected Day (solid primary bubble) */
 .calendar-day.selected {
-  background: var(--color-primary);
-  color: #fff;
+  background: var(--color-primary) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 25px rgba(80,70,255,0.4);
 }
 
+/* -----------------------------------------------------
+   EVENT INDICATOR – refined iOS dot
+----------------------------------------------------- */
 .event-indicator {
   position: absolute;
-  bottom: 4px;
+  bottom: 6px;
   left: 50%;
   transform: translateX(-50%);
+
   width: 6px;
   height: 6px;
   border-radius: 50%;
+
+  box-shadow:
+    0 0 8px rgba(255,255,255,0.6),
+    0 0 4px rgba(0,0,0,0.2);
 }
 
-.event-success { background: #22c55e; }
-.event-warning { background: #facc15; }
-.event-danger  { background: #ef4444; }
+.event-success  { background: #22c55e; }
+.event-warning  { background: #facc15; }
+.event-danger   { background: #ef4444; }

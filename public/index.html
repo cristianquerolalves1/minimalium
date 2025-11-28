@@ -629,6 +629,8 @@
             border-color: #ef4444;
             box-shadow: 0 0 0 3px rgba(239,68,68,0.4);
           }
+
+          
     </style>
   </head>
 
@@ -996,57 +998,78 @@
 
         <!-- CALENDAR -->
 
-        <section id="calendar" class="section">
-          <h2>Calendar</h2>
+      <section id="calendar" class="section">
+  <h2>Calendar</h2>
 
-          <div class="component-preview">
-            <div class="tabs">
-              <button class="tab active" data-target="preview-calendar">
-                Preview
-              </button>
-              <button class="tab" data-target="code-calendar">Code</button>
-            </div>
+  <div class="component-preview">
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-target="preview-calendar">
+        Preview
+      </button>
+      <button class="tab" data-target="code-calendar">Code</button>
+    </div>
 
-            <div id="preview-calendar" class="tab-content active">
-              <div class="preview-body">
-                <div class="calendar">
-                  <div class="calendar-header">
-                    <button id="prev-month">&lt;</button>
-                    <h2 id="month-year">November 2025</h2>
-                    <button id="next-month">&gt;</button>
-                  </div>
-                  <div class="calendar-weekdays">
-                    <div>Sun</div>
-                    <div>Mon</div>
-                    <div>Tue</div>
-                    <div>Wed</div>
-                    <div>Thu</div>
-                    <div>Fri</div>
-                    <div>Sat</div>
-                  </div>
-                  <div class="calendar-days">
-                    <!-- JS -->
-                  </div>
-                </div>
-              </div>
-            </div>
+    <!-- PREVIEW -->
+    <div id="preview-calendar" class="tab-content active">
+      <div class="preview-body">
 
-            <div id="code-calendar" class="tab-content">
-              <div class="code-block">
-                <pre><code>&lt;div class="calendar"&gt;
-        &lt;div class="calendar-header"&gt;
-          &lt;button&gt;&lt;/button&gt;
-          &lt;h2&gt;November 2025&lt;/h2&gt;
-          &lt;button&gt;&lt;/button&gt;
-        &lt;/div&gt;
-        &lt;div class="calendar-weekdays"&gt;Sun, Mon, Tue...&lt;/div&gt;
-        &lt;div class="calendar-days"&gt;1, 2, 3...&lt;/div&gt;
-      &lt;/div&gt;</code></pre>
-                <button class="copy-btn">Copy</button>
-              </div>
-            </div>
+        <div class="calendar">
+          <div class="calendar-header">
+            <button id="prev-month">&lt;</button>
+            <h2 id="month-year">November 2025</h2>
+            <button id="next-month">&gt;</button>
           </div>
-        </section>
+
+          <div class="calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+          </div>
+
+          <div class="calendar-days">
+            <!-- JS Days Injection -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CODE -->
+    <div id="code-calendar" class="tab-content">
+      <div class="code-block">
+        <pre><code>&lt;div class="calendar"&gt;
+  &lt;div class="calendar-header"&gt;
+    &lt;button id="prev-month"&gt;&amp;lt;&lt;/button&gt;
+    &lt;h2 id="month-year"&gt;November 2025&lt;/h2&gt;
+    &lt;button id="next-month"&gt;&amp;gt;&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class="calendar-weekdays"&gt;
+    &lt;div&gt;Sun&lt;/div&gt;
+    &lt;div&gt;Mon&lt;/div&gt;
+    &lt;div&gt;Tue&lt;/div&gt;
+    &lt;div&gt;Wed&lt;/div&gt;
+    &lt;div&gt;Thu&lt;/div&gt;
+    &lt;div&gt;Fri&lt;/div&gt;
+    &lt;div&gt;Sat&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class="calendar-days"&gt;
+    &lt;!-- JS days injection --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+        <button class="copy-btn">Copy</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
         <!-- SKELETON -->
 
@@ -1086,6 +1109,74 @@
             </div>
           </div>
         </section>
+
+        <!-- TOAST BOX -->
+
+
+
+<section id="toastbox" class="section">
+  <h2>Toast Box</h2>
+
+  <div class="component-preview">
+    <div class="tabs">
+      <button class="tab active" data-target="preview-toastbox">
+        Preview
+      </button>
+      <button class="tab" data-target="code-toastbox">Code</button>
+    </div>
+
+  
+    <div id="preview-toastbox" class="tab-content active">
+      <div class="preview-body">
+
+        <button class="button button-primary"
+          onclick="showToastBox('Operación exitosa', 'Tu acción se ha completado correctamente.')">
+          Show Toast Box
+        </button>
+
+        <button class="button button-outline ml-4"
+          onclick="showToastBox('Aviso importante', 'Esto es un mensaje informativo de demostración.')">
+          Show Info
+        </button>
+
+
+        <div id="toastBox" class="toast-box hidden">
+          <div class="toast-box-inner">
+            <div class="toast-box-header">
+              <span id="toastBoxTitle"></span>
+              <button class="toast-close-btn" onclick="closeToastBox()">✕</button>
+            </div>
+            <p id="toastBoxMessage"></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="code-toastbox" class="tab-content">
+      <div class="code-block">
+        <pre><code>&lt;button onclick="showToastBox('Successful operation', 'Your action has been completed successfully.')"&gt;
+  Show Toast Box
+&lt;/button&gt;
+
+&lt;div id="toastBox" class="toast-box hidden"&gt;
+  &lt;div class="toast-box-inner"&gt;
+    &lt;div class="toast-box-header"&gt;
+      &lt;span id="toastBoxTitle"&gt;&lt;/span&gt;
+      &lt;button class="toast-close-btn" onclick="closeToastBox()"&gt;✕&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p id="toastBoxMessage"&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+        <button class="copy-btn">Copy</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
       </main>
     </div>
 

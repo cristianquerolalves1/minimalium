@@ -146,3 +146,26 @@
 
     renderCalendar(currentMonth, currentYear);
   });
+
+
+
+
+
+
+
+
+  function showToastBox(title, message) {
+  const box = document.getElementById("toastBox");
+  const t = document.getElementById("toastBoxTitle");
+  const m = document.getElementById("toastBoxMessage");
+
+  t.textContent = title;
+  m.textContent = message;
+
+  box.classList.remove("hidden");
+}
+
+function closeToastBox() {
+  const box = document.getElementById("toastBox");
+  box.classList.add("hidden");
+}
