@@ -1,171 +1,113 @@
-    document.addEventListener('DOMContentLoaded', () => {
-      const toggle = document.getElementById('theme-toggle-input');
-      const html = document.documentElement;
+// Dark mode persistente
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+  document.documentElement.classList.add('dark');
+  document.getElementById('darkmode').checked = true;
+}
 
-      const setTheme = (dark) => {
-        html.classList.toggle('dark', dark);
-        toggle.checked = dark;
-        localStorage.setItem('minimalium-theme', dark ? 'dark' : 'light');
-      };
+document.getElementById('darkmode').addEventListener('change', (e) => {
+  if (e.target.checked) {
+    document.documentElement.classList.add('dark');
+    localStorage.theme = 'dark';
+  } else {
+    document.documentElement.classList.remove('dark');
+    localStorage.theme = 'light';
+  }
+});
 
+// Sidebar toggle para mobile
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+}
 
-      const saved = localStorage.getItem('minimalium-theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setTheme(saved === 'dark' || (!saved && prefersDark));
+// Tabs
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const previewCard = tab.closest('.preview-card');
+    previewCard.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    previewCard.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    const target = previewCard.querySelector(`#${tab.dataset.tab}`);
+    if (target) target.classList.add('active');
+  });
+});
 
-      toggle.addEventListener('change', () => setTheme(toggle.checked));
-    });
+// Copy to clipboard
+function copyToClipboard(btn) {
+  const code = btn.previousElementSibling.textContent;
+  navigator.clipboard.writeText(code);
+  btn.textContent = 'Copiado!';
+  setTimeout(() => btn.textContent = 'Copy', 2000);
+}
 
+// Calendar functionality
+const calendars = document.querySelectorAll('.calendar');
+calendars.forEach(calendar => {
+  let currentDate = new Date(2025, 10, 30); // November 30, 2025 (months are 0-indexed)
 
-    document.querySelectorAll(".tab").forEach((tab) => {
-          tab.addEventListener("click", () => {
-            const parent = tab.closest(".component-preview");
-            parent.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
-            parent.querySelectorAll(".tab-content").forEach((c) => c.classList.remove("active"));
+  const monthYear = calendar.querySelector('.month-year');
+  const daysGrid = calendar.querySelector('.calendar-days');
+  const prevButton = calendar.querySelector('.prev-month');
+  const nextButton = calendar.querySelector('.next-month');
 
-            tab.classList.add("active");
-            parent.querySelector(`#${tab.dataset.target}`).classList.add("active");
-          });
-        });
+  function generateCalendar(date) {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const firstDay = new Date(year, month, 1).getDay();
+    const lastDate = new Date(year, month + 1, 0).getDate();
+    const prevLastDate = new Date(year, month, 0).getDate();
 
-  
-        document.querySelectorAll(".copy-btn").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const code = btn.previousElementSibling.innerText;
-            navigator.clipboard.writeText(code);
-            btn.innerText = "Copied";
-            setTimeout(() => (btn.innerText = "Copy"), 1300);
-          });
-        });
+    monthYear.textContent = `${date.toLocaleString('default', { month: 'long' })} ${year}`;
 
-        const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll(".nav-link");
+    daysGrid.innerHTML = '';
 
-        window.addEventListener("scroll", () => {
-          let current = "";
-
-          sections.forEach((sec) => {
-            const top = window.scrollY;
-            const offset = sec.offsetTop - 150;
-            const height = sec.clientHeight;
-
-            if (top >= offset && top < offset + height) current = sec.getAttribute("id");
-          });
-
-          navLinks.forEach((link) => {
-            link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
-          });
-        });
-
-        function toggleSidebar() {
-      document.querySelector('.sidebar').classList.toggle('open');
+    // Previous month days
+    for (let i = firstDay; i > 0; i--) {
+      const day = document.createElement('div');
+      day.classList.add('inactive');
+      day.textContent = prevLastDate - i + 1;
+      daysGrid.appendChild(day);
     }
 
-
-
-  document.querySelectorAll('.accordion').forEach(accordion => {
-    accordion.querySelectorAll('.accordion-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const content = header.nextElementSibling;
-        const icon = header.querySelector('.accordion-icon');
-        const isOpen = content.classList.contains('open');
-
-        // Single open behavior
-        accordion.querySelectorAll('.accordion-content').forEach(c => {
-          c.classList.remove('open');
-          c.style.maxHeight = null;
-        });
-        accordion.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('open'));
-
-        if (!isOpen) {
-          content.classList.add('open');
-          icon.classList.add('open');
-          content.style.maxHeight = content.scrollHeight + "px";
-        }
-      });
-    });
-  });
-
-  document.querySelectorAll('.accordion-content.open').forEach(c => {
-    c.style.maxHeight = c.scrollHeight + "px";
-  });
-
-
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const calendarDays = document.querySelector(".calendar-days");
-    const monthYear = document.getElementById("month-year");
-    const prevBtn = document.getElementById("prev-month");
-    const nextBtn = document.getElementById("next-month");
-
-    let currentMonth = 10; 
-    let currentYear = 2025;
-
-    function renderCalendar(month, year) {
-      calendarDays.innerHTML = "";
-      monthYear.textContent = new Date(year, month).toLocaleString("en-US", { month: "long", year: "numeric" });
-
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      for (let i = 0; i < firstDay; i++) {
-        calendarDays.appendChild(document.createElement("div"));
+    // Current month days
+    for (let i = 1; i <= lastDate; i++) {
+      const day = document.createElement('div');
+      day.textContent = i;
+      if (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) {
+        day.classList.add('current-day');
       }
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const dayEl = document.createElement("div");
-        dayEl.classList.add("calendar-day");
-        dayEl.textContent = day;
-
-        const today = new Date();
-        if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
-          dayEl.classList.add("today");
-        }
-
-        calendarDays.appendChild(dayEl);
-      }
+      daysGrid.appendChild(day);
     }
 
-    prevBtn.addEventListener("click", () => {
-      currentMonth--;
-      if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
-      }
-      renderCalendar(currentMonth, currentYear);
-    });
+    // Next month days to fill the grid
+    const totalDays = daysGrid.children.length;
+    for (let i = totalDays; i < 42; i++) { // 6 rows x 7 days
+      const day = document.createElement('div');
+      day.classList.add('inactive');
+      day.textContent = i - totalDays + 1;
+      daysGrid.appendChild(day);
+    }
+  }
 
-    nextBtn.addEventListener("click", () => {
-      currentMonth++;
-      if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear++;
-      }
-      renderCalendar(currentMonth, currentYear);
-    });
-
-    renderCalendar(currentMonth, currentYear);
+  prevButton.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    generateCalendar(currentDate);
   });
 
+  nextButton.addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    generateCalendar(currentDate);
+  });
 
+  generateCalendar(currentDate);
+});
 
-
-
-
-
-
-  function showToastBox(title, message) {
-  const box = document.getElementById("toastBox");
-  const t = document.getElementById("toastBoxTitle");
-  const m = document.getElementById("toastBoxMessage");
-
-  t.textContent = title;
-  m.textContent = message;
-
-  box.classList.remove("hidden");
+// Toast Box functions
+function showToastBox(title, message) {
+  document.getElementById('toastBoxTitle').textContent = title;
+  document.getElementById('toastBoxMessage').textContent = message;
+  document.getElementById('toastBox').classList.remove('hidden');
 }
 
 function closeToastBox() {
-  const box = document.getElementById("toastBox");
-  box.classList.add("hidden");
+  document.getElementById('toastBox').classList.add('hidden');
 }
